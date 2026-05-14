@@ -9,6 +9,7 @@ import CompatibilitySection from "@/components/CompatibilitySection";
 import { GetStaticProps } from "next";
 import WhySection from "@/components/WhySection";
 import AboutSection from "@/components/AboutSection";
+import RachelOrderSection from "@/components/RachelOrderSection";
 
 interface LandingPageProps {
   contributorsByRepo: Record<string, { avatars: string[]; total: number }>;
@@ -27,6 +28,7 @@ export default function LandingPage({ contributorsByRepo }: LandingPageProps) {
           <AboutSection />
           <FAQSection />
         </div>
+        <RachelOrderSection />
       </main>
 
       <Footer />

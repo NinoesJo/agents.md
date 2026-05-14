@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AGENTS.md Project File Map</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f7f4ee;
+        --ink: #1d1d1f;
+        --muted: #66625d;
+        --panel: #ffffff;
+        --panel-soft: #fbfaf7;
+        --line: #ddd6ca;
+        --blue: #2f6fed;
+        --green: #16895a;
+        --amber: #b46b12;
+        --rose: #c4495f;
+        --shadow: 0 18px 50px rgba(39, 35, 29, 0.11);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          linear-gradient(135deg, rgba(47, 111, 237, 0.1), transparent 34%),
+          linear-gradient(225deg, rgba(22, 137, 90, 0.1), transparent 38%),
+          var(--bg);
+        color: var(--ink);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        line-height: 1.5;
+      }
+
+      main {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 56px 0;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+        gap: 28px;
+        align-items: stretch;
+        margin-bottom: 28px;
+      }
+
+      .intro,
+      .quick-card,
+      .section,
+      .node {
+        background: rgba(255, 255, 255, 0.88);
+        border: 1px solid rgba(221, 214, 202, 0.9);
+        box-shadow: var(--shadow);
+      }
+
+      .intro {
+        border-radius: 28px;
+        padding: 36px;
+      }
+
+      .eyebrow {
+        color: var(--blue);
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        margin: 0 0 12px;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        font-size: clamp(2.2rem, 5vw, 4.8rem);
+        letter-spacing: -0.04em;
+        line-height: 0.96;
+        margin-bottom: 18px;
+      }
+
+      h2 {
+        font-size: clamp(1.45rem, 3vw, 2.1rem);
+        letter-spacing: -0.03em;
+        margin-bottom: 10px;
+      }
+
+      h3 {
+        font-size: 1.05rem;
+        margin-bottom: 8px;
+      }
+
+      p {
+        color: var(--muted);
+      }
+
+      code {
+        background: #f0ece4;
+        border: 1px solid #e3dccc;
+        border-radius: 6px;
+        color: #36322e;
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+        font-size: 0.92em;
+        padding: 0.12rem 0.34rem;
+      }
+
+      .quick-card {
+        border-radius: 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 28px;
+      }
+
+      .quick-card ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .quick-card li {
+        border-top: 1px solid var(--line);
+        display: flex;
+        gap: 12px;
+        padding: 14px 0;
+      }
+
+      .dot {
+        border-radius: 999px;
+        display: inline-block;
+        flex: 0 0 auto;
+        height: 12px;
+        margin-top: 6px;
+        width: 12px;
+      }
+
+      .blue {
+        background: var(--blue);
+      }
+
+      .green {
+        background: var(--green);
+      }
+
+      .amber {
+        background: var(--amber);
+      }
+
+      .rose {
+        background: var(--rose);
+      }
+
+      .section {
+        border-radius: 28px;
+        margin-top: 24px;
+        overflow: hidden;
+      }
+
+      .section-head {
+        background: rgba(251, 250, 247, 0.92);
+        border-bottom: 1px solid var(--line);
+        padding: 26px 28px 18px;
+      }
+
+      .section-body {
+        padding: 28px;
+      }
+
+      .map {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: repeat(12, 1fr);
+      }
+
+      .node {
+        border-radius: 18px;
+        min-height: 150px;
+        padding: 18px;
+        position: relative;
+      }
+
+      .node::after {
+        background: var(--line);
+        content: "";
+        height: 2px;
+        position: absolute;
+        right: -17px;
+        top: 50%;
+        width: 17px;
+      }
+
+      .node:nth-child(3n)::after,
+      .node:last-child::after {
+        display: none;
+      }
+
+      .span-4 {
+        grid-column: span 4;
+      }
+
+      .span-6 {
+        grid-column: span 6;
+      }
+
+      .span-12 {
+        grid-column: span 12;
+      }
+
+      .tag {
+        border-radius: 999px;
+        color: #fff;
+        display: inline-flex;
+        font-size: 0.76rem;
+        font-weight: 800;
+        margin-bottom: 12px;
+        padding: 4px 9px;
+      }
+
+      .tag.blue {
+        background: var(--blue);
+      }
+
+      .tag.green {
+        background: var(--green);
+      }
+
+      .tag.amber {
+        background: var(--amber);
+      }
+
+      .tag.rose {
+        background: var(--rose);
+      }
+
+      .file-list {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin-top: 18px;
+      }
+
+      .file {
+        background: var(--panel-soft);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 14px;
+      }
+
+      .file strong {
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      .flow {
+        counter-reset: step;
+        display: grid;
+        gap: 14px;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .step {
+        background: var(--panel-soft);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 18px;
+      }
+
+      .step::before {
+        align-items: center;
+        background: var(--ink);
+        border-radius: 999px;
+        color: #fff;
+        content: counter(step);
+        counter-increment: step;
+        display: inline-flex;
+        font-size: 0.8rem;
+        font-weight: 800;
+        height: 28px;
+        justify-content: center;
+        margin-bottom: 12px;
+        width: 28px;
+      }
+
+      .footer-note {
+        color: var(--muted);
+        font-size: 0.92rem;
+        margin: 20px 0 0;
+        text-align: center;
+      }
+
+      @media (max-width: 820px) {
+        main {
+          width: min(100% - 24px, 640px);
+          padding: 28px 0;
+        }
+
+        .hero,
+        .flow,
+        .file-list {
+          grid-template-columns: 1fr;
+        }
+
+        .span-4,
+        .span-6,
+        .span-12 {
+          grid-column: span 12;
+        }
+
+        .node::after {
+          display: none;
+        }
+
+        .intro,
+        .quick-card,
+        .section-head,
+        .section-body {
+          padding: 22px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <div class="intro">
+          <p class="eyebrow">Project file map</p>
+          <h1 id="page-title">How this AGENTS.md site fits together</h1>
+          <p>
+            This page explains the relationship between the files in this
+            project: where the app starts, how the landing page is assembled,
+            where styling comes from, and how static assets support the UI.
+          </p>
+        </div>
+
+        <aside class="quick-card" aria-label="Quick summary">
+          <h2>Big picture</h2>
+          <ul>
+            <li>
+              <span class="dot blue"></span>
+              <span><code>pages</code> defines the app shell and route.</span>
+            </li>
+            <li>
+              <span class="dot green"></span>
+              <span><code>components</code> builds the homepage sections.</span>
+            </li>
+            <li>
+              <span class="dot amber"></span>
+              <span><code>styles</code> sets shared visual rules.</span>
+            </li>
+            <li>
+              <span class="dot rose"></span>
+              <span><code>public</code> stores logos and social images.</span>
+            </li>
+          </ul>
+        </aside>
+      </section>
+
+      <section class="section" aria-labelledby="dependency-map-title">
+        <div class="section-head">
+          <h2 id="dependency-map-title">Relationship Map</h2>
+          <p>
+            Read this left to right: configuration and app shell feed into the
+            route, the route composes sections, and those sections use shared
+            styles plus public files.
+          </p>
+        </div>
+        <div class="section-body">
+          <div class="map">
+            <article class="node span-4">
+              <span class="tag blue">Setup</span>
+              <h3><code>package.json</code></h3>
+              <p>
+                Declares the Next.js, React, Tailwind, TypeScript, and Vercel
+                Analytics dependencies. Its scripts run development and start
+                commands.
+              </p>
+            </article>
+
+            <article class="node span-4">
+              <span class="tag blue">Config</span>
+              <h3><code>next.config.ts</code></h3>
+              <p>
+                Enables React strict mode and gives Next.js its project-level
+                settings.
+              </p>
+            </article>
+
+            <article class="node span-4">
+              <span class="tag blue">Shell</span>
+              <h3><code>pages/_app.tsx</code></h3>
+              <p>
+                Wraps every page, loads global CSS, sets metadata, and adds
+                Vercel Analytics.
+              </p>
+            </article>
+
+            <article class="node span-4">
+              <span class="tag green">Document</span>
+              <h3><code>pages/_document.tsx</code></h3>
+              <p>
+                Controls the outer HTML document, including language, favicon
+                links, and the body container.
+              </p>
+            </article>
+
+            <article class="node span-4">
+              <span class="tag green">Route</span>
+              <h3><code>pages/index.tsx</code></h3>
+              <p>
+                Builds the homepage from section components and fetches GitHub
+                contributor data for the example repository cards.
+              </p>
+            </article>
+
+            <article class="node span-4">
+              <span class="tag green">Sections</span>
+              <h3><code>components/*.tsx</code></h3>
+              <p>
+                Provides the visible pieces of the page: hero, why section,
+                compatibility logos, examples, how-to content, FAQ, and footer.
+              </p>
+            </article>
+
+            <article class="node span-6">
+              <span class="tag amber">Styling</span>
+              <h3><code>styles/globals.css</code></h3>
+              <p>
+                Imports Tailwind, defines fonts and theme colors, sets body
+                styles, and contains the logo marquee animation.
+              </p>
+            </article>
+
+            <article class="node span-6">
+              <span class="tag rose">Assets</span>
+              <h3><code>public/</code></h3>
+              <p>
+                Holds browser-served files such as agent logos, favicons, and
+                Open Graph images used by the homepage and social previews.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="component-title">
+        <div class="section-head">
+          <h2 id="component-title">Main Components</h2>
+          <p>
+            The landing page is assembled from small, focused React components.
+            Each component owns one idea on the page.
+          </p>
+        </div>
+        <div class="section-body">
+          <div class="file-list">
+            <div class="file">
+              <strong><code>Hero.tsx</code></strong>
+              Introduces AGENTS.md and shows a compact sample instructions file.
+            </div>
+            <div class="file">
+              <strong><code>WhySection.tsx</code></strong>
+              Explains why AGENTS.md exists alongside README.md.
+            </div>
+            <div class="file">
+              <strong><code>CompatibilitySection.tsx</code></strong>
+              Displays compatible coding agents and tools using logos from
+              <code>public/logos</code>.
+            </div>
+            <div class="file">
+              <strong><code>ExamplesSection.tsx</code></strong>
+              Combines the sample markdown block with real repository cards.
+            </div>
+            <div class="file">
+              <strong><code>ExampleListSection.tsx</code></strong>
+              Renders repository cards and receives contributor avatars from
+              <code>pages/index.tsx</code>.
+            </div>
+            <div class="file">
+              <strong><code>CodeExample.tsx</code></strong>
+              Displays Markdown-like examples and provides copy-to-clipboard
+              behavior.
+            </div>
+            <div class="file">
+              <strong><code>HowToUseSection.tsx</code></strong>
+              Lists the practical steps for creating an AGENTS.md file.
+            </div>
+            <div class="file">
+              <strong><code>FAQSection.tsx</code></strong>
+              Answers common questions and shows configuration snippets.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="data-flow-title">
+        <div class="section-head">
+          <h2 id="data-flow-title">How Data Moves</h2>
+          <p>
+            Most content is static React markup. The one dynamic piece is the
+            contributor information used by the examples section.
+          </p>
+        </div>
+        <div class="section-body">
+          <div class="flow">
+            <div class="step">
+              <h3>Repos are listed</h3>
+              <p>
+                <code>pages/index.tsx</code> keeps a list of example GitHub
+                repositories.
+              </p>
+            </div>
+            <div class="step">
+              <h3>GitHub is queried</h3>
+              <p>
+                <code>getStaticProps</code> fetches contributor avatars and
+                totals, with optional <code>GH_AUTH_TOKEN</code> support.
+              </p>
+            </div>
+            <div class="step">
+              <h3>Props are passed</h3>
+              <p>
+                Contributor data is passed into <code>ExamplesSection</code>
+                and then into <code>ExampleListSection</code>.
+              </p>
+            </div>
+            <div class="step">
+              <h3>Cards render</h3>
+              <p>
+                Each card combines repo metadata, language color, avatars, and
+                a link to that repo's AGENTS.md file.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <p class="footer-note">
+        This file is a standalone guide. The actual application remains the
+        Next.js site defined by <code>pages</code>, <code>components</code>,
+        <code>styles</code>, and <code>public</code>.
+      </p>
+    </main>
+  </body>
+</html>
